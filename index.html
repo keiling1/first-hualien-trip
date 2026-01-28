@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>第一個花蓮旅程 🦎</title>
+    <title>第一個花蓮旅程</title>
     <style>
-        /* 移除所有邊距，確保內容填滿 */
+        /* 徹底移除所有邊距與捲軸，讓畫面極簡 */
         body, html { 
             margin: 0; 
             padding: 0; 
@@ -14,8 +14,8 @@
             overflow: hidden; 
             background-color: #ffffff; 
         }
-        /* 讓容器撐滿整個視窗 */
-        .full-screen-container {
+        /* 容器撐滿整個手機螢幕 */
+        .app-container {
             position: absolute;
             top: 0;
             left: 0;
@@ -26,11 +26,12 @@
             border: none; 
             width: 100%; 
             height: 100%; 
+            display: block;
         }
     </style>
 </head>
 <body>
-    <div class="full-screen-container">
+    <div class="app-container">
         <iframe loading="lazy" 
                 src="https://www.canva.com/design/DAG_tvWNJDo/kgjkJuiSuVAi9Ne2-O3Hgg/view?embed" 
                 allowfullscreen="allowfullscreen" 
