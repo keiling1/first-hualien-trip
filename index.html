@@ -1,23 +1,33 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>第一個花蓮旅程</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+
     <style>
         :root {
-            /* 在這裡修改主色調 */
+            /* 背景圖片設定 */
             --bg-image: url('20250121_113214.jpg');
-            --overlay-color: rgba(255, 255, 255, 0.85); /* 內容區塊透明度 */
-            --accent-color: #ff6b6b; /* 守宮粉色系 */
+            --overlay-color: rgba(255, 255, 255, 0.75); /* 調低一點讓背景透出來更美 */
+            --accent-color: #ff6b6b;
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: -apple-system, sans-serif; }
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            /* 全局套用手寫字體 */
+            font-family: 'ZCOOL KuaiLe', cursive; 
+            background: #000; 
+            overflow-x: hidden;
+        }
 
-        /* 背景修改處 */
+        /* 背景填滿設定 */
         .main-background {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-image) no-repeat center center;
@@ -25,33 +35,40 @@
             z-index: -1;
         }
 
+        /* 內容容器：加入毛玻璃效果 */
         .scroll-container {
             min-height: 100vh;
             display: flex; flex-direction: column; align-items: center;
-            padding: 40px 20px; box-sizing: border-box;
+            padding: 60px 20px 40px 20px;
+            box-sizing: border-box;
             background: var(--overlay-color);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
         }
 
         header { text-align: center; margin-bottom: 30px; }
-        h1 { margin: 0; font-size: 28px; color: #333; letter-spacing: 2px; }
-        .gecko-icon { font-size: 50px; margin-bottom: 10px; }
+        h1 { margin: 0; font-size: 32px; color: #333; letter-spacing: 2px; }
+        .gecko-icon { font-size: 50px; margin-bottom: 5px; }
+        .date-info { color: #666; font-size: 16px; margin-top: 5px; }
 
-        /* 導航按鈕設計 */
+        /* 導航按鈕設計：手機自動 2 欄 */
         .nav-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 15px; width: 100%; max-width: 500px;
         }
 
         .nav-card {
-            background: white; border-radius: 20px; padding: 20px;
+            background: white; border-radius: 25px; padding: 25px 10px;
             text-align: center; text-decoration: none; color: #444;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
             transition: 0.3s; display: flex; flex-direction: column; align-items: center;
-            border: 1px solid rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.5);
+            -webkit-tap-highlight-color: transparent;
         }
-        .nav-card:active { transform: scale(0.95); }
-        .nav-card .icon { font-size: 30px; margin-bottom: 8px; }
-        .nav-card span { font-weight: bold; font-size: 15px; }
+        .nav-card:active { transform: scale(0.92); background: #fff5f5; }
+        .nav-card .icon { font-size: 35px; margin-bottom: 10px; }
+        .nav-card span { font-size: 18px; color: #222; }
 
         /* 彈出告示 */
         #alert-overlay {
@@ -61,12 +78,14 @@
             visibility: hidden; opacity: 0; transition: 0.3s;
         }
         .alert-box {
-            background: white; padding: 30px; border-radius: 25px; width: 85%; max-width: 320px;
-            text-align: center; box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            background: white; padding: 35px 25px; border-radius: 30px; width: 85%; max-width: 320px;
+            text-align: center; box-shadow: 0 15px 45px rgba(0,0,0,0.3);
+            font-family: 'ZCOOL KuaiLe', cursive;
         }
         .close-btn {
             background: var(--accent-color); color: white; border: none;
-            padding: 12px 40px; border-radius: 25px; margin-top: 20px; font-weight: bold;
+            padding: 12px 45px; border-radius: 25px; margin-top: 25px; 
+            font-weight: bold; font-family: 'ZCOOL KuaiLe', cursive; font-size: 18px;
         }
         .show { visibility: visible !important; opacity: 1 !important; }
     </style>
@@ -77,9 +96,9 @@
 
     <div id="alert-overlay">
         <div class="alert-box">
-            <div style="font-size: 40px;">📢</div>
-            <h2 style="margin: 10px 0; color: #333;">旅行公告</h2>
-            <p style="color: #666; line-height: 1.5;">明早 08:30 在飯店大廳集合！<br>花蓮早晚溫差大，記得帶外套 🦎</p>
+            <div style="font-size: 45px; margin-bottom: 10px;">📢</div>
+            <h2 style="margin: 0; color: #333;">旅行小公告</h2>
+            <p style="color: #666; line-height: 1.6; margin-top: 15px; font-size: 18px;">明早 08:30 在飯店大廳集合！<br>花蓮海邊風大，記得帶外套喔 🦎</p>
             <button class="close-btn" onclick="document.getElementById('alert-overlay').classList.remove('show')">收到！</button>
         </div>
     </div>
@@ -88,7 +107,7 @@
         <header>
             <div class="gecko-icon">🦎</div>
             <h1>第一個花蓮旅程</h1>
-            <p style="color: #888;">2026.01.31 - 02.04</p>
+            <div class="date-info">2026.01.31 - 02.04</div>
         </header>
 
         <div class="nav-grid">
@@ -107,7 +126,7 @@
             <a href="https://www.canva.com/design/DAG_zxJpheA/WmeKa0o7nB1wEzdOlgWJ1w/view" class="nav-card">
                 <div class="icon">🛍️</div><span>購物資訊</span>
             </a>
-            <a href="你的Canva天氣網址" class="nav-card">
+            <a href="https://www.cwa.gov.tw/V8/C/W/Town/Town.html?TID=1001501" class="nav-card">
                 <div class="icon">☀️</div><span>即時天氣</span>
             </a>
         </div>
@@ -115,6 +134,7 @@
 
     <script>
         window.onload = function() {
+            // 延遲一秒彈出，比較有儀式感
             setTimeout(() => { document.getElementById('alert-overlay').classList.add('show'); }, 1000);
         };
     </script>
