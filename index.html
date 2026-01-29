@@ -3,18 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>花蓮漫遊 🦎</title>
+    <title>花蓮漫遊 App 🦎</title>
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="apple-touch-icon" href="你的守宮圖標.png">
     
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background-color: #ffffff; }
-        iframe { border: none; width: 100vw; height: 100vh; display: block; }
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: -apple-system, sans-serif; }
+        
+        /* 1. App 容器：讓 Canva 撐滿螢幕 */
+        .app-view { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
+        iframe { border: none; width: 100%; height: 100%; display: block; }
+
+        /* 2. 彈出式告示樣式 */
+        #popup-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); z-index: 999;
+            display: flex; justify-content: center; align-items: center;
+            visibility: hidden; opacity: 0; transition: 0.3s;
+        }
+        #popup-box {
+            background: white; padding: 25px; border-radius: 20px; width: 80%; max-width: 300px;
+            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        #popup-box h2 { margin-top: 0; color: #ff6b6b; font-size: 20px; }
+        #popup-box p { color: #555; line-height: 1.5; }
+        .close-btn {
+            background: #4a90e2; color: white; border: none; padding: 10px 30px;
+            border-radius: 25px; margin-top: 15px; font-weight: bold; cursor: pointer;
+        }
     </style>
 </head>
 <body>
-    <iframe src="https://f-cheung.my.canva.site/first-hualien-trip/"></iframe>
+
+    <div id="popup-overlay">
+        <div id="popup-box">
+            <h2>📢 守宮導遊小提醒</h2>
+            <p id="alert-msg">花蓮明天氣溫 18-22 度，記得帶件薄外套喔！</p>
+            <button class="close-btn" onclick="closePopup()">知道了</button>
+        </div>
+    </div>
+
+    <div class="app-view">
+        <iframe src="https://www.canva.com/design/DAG_tvWNJDo/kgjkJuiSuVAi9Ne2-O3Hgg/view?embed"></iframe>
+    </div>
+
+    <script>
+        // 頁面載入後 2 秒自動彈出告示
+        window.onload = function() {
+            setTimeout(() => {
+                document.getElementById('popup-overlay').style.visibility = 'visible';
+                document.getElementById('popup-overlay').style.opacity = '1';
+            }, 1000);
+        };
+
+        function closePopup() {
+            document.getElementById('popup-overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('popup-overlay').style.visibility = 'hidden';
+            }, 300);
+        }
+    </script>
 </body>
 </html>
