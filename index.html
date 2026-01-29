@@ -75,6 +75,27 @@
             padding: 12px 40px; border-radius: 25px; margin-top: 20px; font-weight: bold;
         }
         .show { visibility: visible !important; opacity: 1 !important; }
+        /* 讓 Emoji 和 Logo 水平排列並對齊中間 */
+        .logo-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px; /* 蜥蜴與 Logo 之間的間距 */
+            margin-bottom: 10px;
+        }
+
+        /* 蜥蜴 Emoji 大小調整 */
+        .gecko-icon {
+            font-size: 45px;
+            line-height: 1;
+        }
+
+        /* 你的 Logo 大小調整 */
+        .user-logo {
+            height: 45px; /* 設定跟 Emoji 一樣高，比例會最漂亮 */
+            width: auto;   /* 寬度隨比例自動縮放 */
+            display: block;
+        }
     </style>
 </head>
 <body>
