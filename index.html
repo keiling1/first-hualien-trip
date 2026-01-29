@@ -3,66 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>花蓮漫遊 App 🦎</title>
-    
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
+    <title>2026 花蓮漫遊 🦎</title>
     <style>
-        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: -apple-system, sans-serif; }
+        :root { --main-bg: #f5f7fa; --card-bg: #ffffff; --accent: #4a90e2; --text: #333; }
+        body { margin: 0; padding: 0; background: var(--main-bg); font-family: -apple-system, "PingFang TC", sans-serif; color: var(--text); }
         
-        /* 1. App 容器：讓 Canva 撐滿螢幕 */
-        .app-view { position: absolute; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1; }
-        iframe { border: none; width: 100%; height: 100%; display: block; }
+        /* 頁面標題 */
+        header { padding: 40px 20px; text-align: center; background: white; border-bottom-left-radius: 30px; border-bottom-right-radius: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h1 { margin: 0; font-size: 24px; color: #333; }
+        .subtitle { font-size: 14px; color: #888; margin-top: 5px; }
 
-        /* 2. 彈出式告示樣式 */
-        #popup-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 999;
-            display: flex; justify-content: center; align-items: center;
-            visibility: hidden; opacity: 0; transition: 0.3s;
-        }
-        #popup-box {
-            background: white; padding: 25px; border-radius: 20px; width: 80%; max-width: 300px;
-            text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        #popup-box h2 { margin-top: 0; color: #ff6b6b; font-size: 20px; }
-        #popup-box p { color: #555; line-height: 1.5; }
-        .close-btn {
-            background: #4a90e2; color: white; border: none; padding: 10px 30px;
-            border-radius: 25px; margin-top: 15px; font-weight: bold; cursor: pointer;
-        }
+        /* 選單容器：手機 1 欄，電腦多欄 */
+        .menu-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 20px; max-width: 800px; margin: 0 auto; }
+        
+        /* 按鈕卡片樣式 */
+        .menu-item { background: var(--card-bg); border-radius: 20px; padding: 20px; text-align: center; text-decoration: none; color: var(--text); box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.2s; border: 1px solid #eee; display: flex; flex-direction: column; align-items: center; }
+        .menu-item:active { transform: scale(0.95); background: #f0f0f0; }
+        .icon { font-size: 32px; margin-bottom: 10px; }
+        .label { font-weight: bold; font-size: 16px; }
+
+        /* 彈出告示 */
+        #popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; justify-content: center; align-items: center; visibility: hidden; opacity: 0; transition: 0.3s; }
+        #popup-box { background: white; padding: 30px; border-radius: 25px; width: 80%; max-width: 320px; text-align: center; }
+        .close-btn { background: var(--accent); color: white; border: none; padding: 12px 35px; border-radius: 25px; margin-top: 20px; font-weight: bold; }
+        .show { visibility: visible !important; opacity: 1 !important; }
     </style>
 </head>
 <body>
 
     <div id="popup-overlay">
         <div id="popup-box">
-            <h2>📢 守宮導遊小提醒</h2>
-            <p id="alert-msg">花蓮明天氣溫 18-22 度，記得帶件薄外套喔！</p>
-            <button class="close-btn" onclick="closePopup()">知道了</button>
+            <div style="font-size: 40px; margin-bottom: 10px;">🦎</div>
+            <h2 style="margin: 0; color: #ff6b6b;">重要公告</h2>
+            <p style="color: #666; line-height: 1.6; margin: 15px 0;">明早 08:30 在大廳集合！<br>花蓮今天有雨，記得帶傘。</p>
+            <button class="close-btn" onclick="document.getElementById('popup-overlay').classList.remove('show')">收到！</button>
         </div>
     </div>
 
-    <div class="app-view">
-        <iframe src="https://www.canva.com/design/DAG_u1UeDqg/Dvrq12-1JP7gUkMoYUfoiA/view?embed"></iframe>
+    <header>
+        <h1>2026 花蓮漫遊 🦎</h1>
+        <div class="subtitle">家人的專屬旅行助手</div>
+    </header>
+
+    <div class="menu-grid">
+        <a href="連結1" class="menu-item">
+            <span class="icon">📅</span><span class="label">預定行程</span>
+        </a>
+        <a href="連結2" class="menu-item">
+            <span class="icon">🚌</span><span class="label">交通資訊</span>
+        </a>
+        <a href="連結3" class="menu-item">
+            <span class="icon">🏠</span><span class="label">住宿資訊</span>
+        </a>
+        <a href="連結4" class="menu-item">
+            <span class="icon">🍜</span><span class="label">飲食資訊</span>
+        </a>
+        <a href="連結5" class="menu-item">
+            <span class="icon">🛍️</span><span class="label">購物資訊</span>
+        </a>
     </div>
 
     <script>
-        // 頁面載入後 2 秒自動彈出告示
         window.onload = function() {
-            setTimeout(() => {
-                document.getElementById('popup-overlay').style.visibility = 'visible';
-                document.getElementById('popup-overlay').style.opacity = '1';
-            }, 1000);
+            setTimeout(() => { document.getElementById('popup-overlay').classList.add('show'); }, 1000);
         };
-
-        function closePopup() {
-            document.getElementById('popup-overlay').style.opacity = '0';
-            setTimeout(() => {
-                document.getElementById('popup-overlay').style.visibility = 'hidden';
-            }, 300);
-        }
     </script>
 </body>
 </html>
